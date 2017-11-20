@@ -1,4 +1,4 @@
-# RigChecks
+# MySmartPal
 The repository for the rig checks site
 
 To work on this project, you must have the following programs installed, NodeJS, Git, and MySql
