@@ -9,11 +9,7 @@ var config = require(path.join(__dirname, '..', 'config', 'dbconfig.json'))[env]
 if (process.env.DATABASE_URL) {
     var sequelize = new Sequelize(process.env.DATABASE_URL);
 } else {
-    var sequelize = new Sequelize('RigChecks', 'root', 'lolWhut123', {
-        host: "127.0.0.1",
-        port: 3306
-    });
-    // var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    var sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 var db = {};
 

@@ -56,24 +56,16 @@ exports.addNewAccount = function (newData, callback) {
         } else {
             encrypt.saltAndHash(newData.password, function (hash) {
                 newData.password = hash;
-
-                models.AmbulanceSquad.create({}).then(function (squad) {
-                    if (squad) {
-                        models.User.create({
-                            username: newData.username,
-                            password: newData.password,
-                            first: newData.first,
-                            last: newData.last,
-                            email: newData.email,
-                            phone: newData.phone,
-                            role: 'CHIEF',
-                            ambulanceSquadId: squad.id
-                        }).then(callback(null));
-                    } else {
-                        callback('error-creating-squad');
-                    }
+                models.User.create({
+                    username: newData.username,
+                    password: newData.password,
+                    first: newData.first,
+                    last: newData.last,
+                    email: newData.email,
+                    phone: newData.phone,
+                }).then((user, err) => {
+                    callback(null, user)
                 });
-
             });
         }
     });
@@ -155,7 +147,9 @@ exports.verifyEmail = function (code, callback) {
 };
 
 exports.getAccountByEmail = function (email, callback) {
-
+    models.User.find({where: {email: email}}).then(function (user) {
+        callback(user);
+    });
 };
 
 exports.validateResetLink = function (email, passHash, callback) {

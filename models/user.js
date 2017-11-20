@@ -45,15 +45,6 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        role: {
-            type: DataTypes.ENUM,
-            values: ['EMT', 'SUPERVISOR', 'CHIEF'],
-            defaultValue: 'EMT'
-        },
-        ambulanceSquadId: {
-            type: DataTypes.INTEGER,
-            defaultValue: null
-        },
         createdAt: {
             type: DataTypes.DATE,
             defaultValue: sequelize.NOW
@@ -65,14 +56,7 @@ module.exports = function (sequelize, DataTypes) {
     }, {
         classMethods: {
             associate: function (models) {
-                User.hasMany(models.RigCheck, {
-                    //as: 'compartmentId',
-                    foreignKey: 'userId'
-                });
 
-                User.belongsTo(models.AmbulanceSquad, {
-                    foreignKey: 'ambulanceSquadId'
-                });
             },
             validPassword: function (password, passwd, done, user) {
                 bcrypt.compare(password, passwd, function (err, isMatch) {
