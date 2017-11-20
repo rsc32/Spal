@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="description" content="Log your rig checks online.">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+   <!-- Add to homescreen for Safari on iOS -->
+   <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+   <link rel="stylesheet"
+         href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+   <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.cyan-light_blue.min.css">
+   <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+<div class="main-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+   <header class="main-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+      <div class="mdl-layout__header-row">
+         <span class="mdl-layout-title">{{title}}</span>
+         <div class="mdl-layout-spacer"></div>
+
+         <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="morebtn">
+            <i class="material-icons">more_vert</i>
+         </button>
+         <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="morebtn">
+            <li id="logout-btn" class="mdl-menu__item">Log Out</li>
+         </ul>
+
+      </div>
+   </header>
+
+   <div class="main-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+      <header class="main-drawer-header"><img src="images/user.jpg" class="user-avatar">
+         <div class="user-avatar-dropdown"><span>{{user.first}} {{user.last}}
+            (<strong>{{user.role}}</strong>)<br>{{user.email}}</span>
+            <div class="mdl-layout-spacer"></div>
+         </div>
+      </header>
+      <nav class="main-navigation mdl-navigation mdl-color--blue-grey-800">
+         <a href="/home" class="mdl-navigation__link" id="home-nav">
+            <i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">home</i>Home</a>
+         <a href="/rigchecks" class="mdl-navigation__link" id="rigcheck-nav">
+            <i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">assignment_turned_in</i>Rig
+            Check</a>
+         {{#if user.isSupervisor}}
+            <!-- the supervisor is able to add and remove people and -->
+            <a href="/checklists" class="mdl-navigation__link" id="checklist-nav">
+               <i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">assignment</i>Checklists</a>
+            <a href="/squad" class="mdl-navigation__link" id="squad-nav">
+               <i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">people</i>Squad</a>
+         {{/if}}
+         {{#if user.isChief}}
+            <!-- only the chief is able to add ambulances -->
+            <a href="/checklists" class="mdl-navigation__link" id="checklist-nav">
+               <i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">assignment</i>Checklists</a>
+            <a href="/ambulances" class="mdl-navigation__link" id="ambulance-nav">
+               <i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">local_shipping</i>Ambulances</a>
+            <a href="/squad" class="mdl-navigation__link" id="squad-nav">
+               <i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">people</i>Squad</a>
+         {{/if}}
+         <a href="/profile" class="mdl-navigation__link" id="profile-nav">
+            <i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">account_circle</i>Profile</a>
+         <div class="mdl-layout-spacer"></div>
+         <a href="/help" class="mdl-navigation__link" id="help-nav">
+            <i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">help_outline</i><span
+                 class="visuallyhidden">Help</span></a>
+      </nav>
+
+   </div>
+   <div class="mdl-tooltip mdl-tooltip--right" data-mdl-for="home-nav">See the dashboard</div>
+   <div class="mdl-tooltip mdl-tooltip--right" data-mdl-for="rigcheck-nav">Make a rig check</div>
+   <div class="mdl-tooltip mdl-tooltip--right" data-mdl-for="checklist-nav">Add or Edit a rig check checklist</div>
+   <div class="mdl-tooltip mdl-tooltip--right" data-mdl-for="ambulance-nav">Add or Edit Ambulances</div>
+   <div class="mdl-tooltip mdl-tooltip--right" data-mdl-for="squad-nav">Add, Remove, or Edit the squad and it's
+      members
+   </div>
+   <div class="mdl-tooltip mdl-tooltip--right" data-mdl-for="profile-nav">Edit your profile</div>
+   <div class="mdl-tooltip mdl-tooltip--right" data-mdl-for="help-nav">It's okay to be confused</div>
+
+   <main class="mdl-layout__content mdl-color--grey-100">
+      <div class="mdl-grid main-content">
+         <!-- So this is where stuff goes, try tables then move onto other stuff -->
+
+
+         <!-- TODO this is the basic info card -->
+         <div id="user-{{id}}"
+              class="checklist-card mdl-shadow--2dp mdl-color--white mdl-cell mdl-card mdl-cell--12-col">
+
+
+            <div class="mdl-card__title mdl-card--expand mdl-color--blue-300">
+               <h3>Basic Info</h3>
+            </div>
+            <div class="mdl-card__supporting-text mdl-color-text--grey-600 basicInfo">
+
+               {{#if user.isNotVerified}}
+                  <h5><span style="color:red">Be sure to get verified!</span></h5>
+               {{/if}}
+               <table>
+                  <tr>
+                     <td>Name:</td>
+                     <td id="user-profile-firstlast">
+                        {{{user.last}}}, {{{user.first}}}</td>
+                  </tr>
+                  <tr>
+                     <td>Email:</td>
+                     <td id="user-profile-email">{{{user.email}}}</td>
+                  </tr>
+                  <tr>
+                     <td>Username:</td>
+                     <td id="user-profile-username">{{{user.username}}}</td>
+                  </tr>
+                  <tr>
+                     <td>Phone:</td>
+                     <td id="user-profile-phone">{{{user.phone}}}</td>
+               </table>
+            </div>
+
+            <div class="mdl-card__actions mdl-card--border ">
+
+               <button id="edit-btn" class="right mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                  <!--onclick='enableEdit({{id}})'-->
+                  <i class="material-icons">edit</i>
+               </button>
+
+            </div>
+         </div>
+
+         <!-- TODO this is the squad info card -->
+         <div id="user-{{id}}"
+              class="checklist-card mdl-shadow--2dp mdl-color--white mdl-cell mdl-card mdl-cell--12-col">
+
+            <div class="mdl-card__title mdl-card--expand mdl-color--blue-300">
+               <h3>Squad Info</h3>
+            </div>
+            <div class="mdl-card__supporting-text mdl-color-text--grey-600 basicInfo">
+
+
+               <table>
+                  <tr>
+                     <td>Squad Number:</td>
+                     <td>{{{ambulanceSquad.squadNumber}}}</td>
+                  </tr>
+                  <tr>
+                     <td>City:</td>
+                     <td>{{{ambulanceSquad.city}}}</td>
+                  </tr>
+                  <tr>
+                     <td>State:</td>
+                     <td>{{{ambulanceSquad.state}}}</td>
+                  </tr>
+                  <tr>
+                     <td>Phone:</td>
+                     <td>{{{ambulanceSquad.phone}}}</td>
+                  </tr>
+               </table>
+
+            </div>
+         </div>
+      </div>
+   </main>
+</div>
+
+<!-- logout dialog -->
+<dialog class="logout-dialog mdl-dialog">
+   <h4 class="mdl-dialog__title">Logout?</h4>
+   <div class="mdl-dialog__content">
+      <p>
+         Are you sure you want to log out?
+      </p>
+   </div>
+   <div class="mdl-dialog__actions">
+      <button type="button" class="mdl-button accept">Accept</button>
+      <button type="button" class="mdl-button close">Cancel</button>
+   </div>
+</dialog>
+
+<!-- Edit information dialog -->
+<dialog class="edit-profile-dialog mdl-dialog" id="profile-edit-id">
+   <h4 class="mdl-dialog__title">Edit Info</h4>
+   <div class="mdl-dialog__content">
+      <p>
+         Please insert the following
+      </p>
+
+      <form id="form-edit-info" method="post">
+         <!-- each div is it's own field -->
+         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" name="first-name"
+                   id="tf-first" value="{{{user.first}}}">
+            <label class="mdl-textfield__label" for="tf-first">First Name</label>
+            <span id="tf-make-error" class="mdl-textfield__error">This cannot be empty!</span>
+         </div>
+         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" name="last-name"
+                   id="tf-last" value="{{{user.last}}}">
+            <label class="mdl-textfield__label" for="tf-last">Last Name</label>
+            <span id="tf-make-error" class="mdl-textfield__error">This cannot be empty!</span>
+         </div>
+         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" name="email"
+                   id="tf-email" value="{{{user.email}}}">
+            <label class="mdl-textfield__label" for="tf-email">Email</label>
+            <span id="tf-make-error" class="mdl-textfield__error">This cannot be empty!</span>
+         </div>
+         <!--
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" name="username"
+                     id="tf-username" value="{{{user.username}}}">
+              <label class="mdl-textfield__label" for="tf-username">Username</label>
+              <span id="tf-make-error" class="mdl-textfield__error">This cannot be empty!</span>
+          </div>
+          -->
+         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" name="phone"
+                   id="tf-phone" value="{{{user.phone}}}">
+            <label class="mdl-textfield__label" for="tf-phone">Phone</label>
+            <span id="tf-make-error" class="mdl-textfield__error">This cannot be empty!</span>
+         </div>
+      </form>
+
+   </div>
+   <div class="mdl-dialog__actions">
+      <button type="button" onclick="{{id}}" class="mdl-button edit">Edit</button>
+      <button type="button" onclick="{{id}}" class="mdl-button closeEdit">Cancel</button>
+   </div>
+</dialog>
+
+<!-- toast that shows info -->
+<div id="toast" class="mdl-js-snackbar mdl-snackbar">
+   <div class="mdl-snackbar__text"></div>
+   <button class="mdl-snackbar__action" type="button"></button>
+</div>
+
+</body>
+
+<script src="/vendor/jquery-2.2.3.min.js"></script>
+<script src="/vendor/jquery.form.min.js"></script>
+<script src="/vendor/bootstrap.min.js"></script>
+<script src="/js/views/profile.js"></script>
+<script src="/js/controllers/profileController.js"></script>
+<script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+
+</html>

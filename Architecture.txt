@@ -1,0 +1,41 @@
+Primary Users
+	User ID
+	Payment ID
+	Name
+	Username
+	Password
+	Phone Number
+	Ambulance ID
+	Position
+	Verified
+	(Security Questions)
+
+riginfo
+	Ambulance ID
+	Ambulance Name
+	Location (State, Address, Zip Code)
+	Phone Number
+
+Rig (might have to be split into compartments)
+	Ambulance ID
+	Whatever is in an Ambulance
+
+Payment History
+	Payment ID
+	Payment Date
+	Amount Charged
+	Amount Owed
+
+Payment Method
+	Payment ID
+	Card Number
+		Expr Date
+		cvc code
+	Name on Card	
+
+(Secondary Users)
+	(Ambulance ID
+	Name
+	Username
+	Password
+	Verified)

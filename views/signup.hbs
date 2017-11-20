@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Rig Checks</title>
+   <link rel="stylesheet" href="/vendor/bootstrap.min.css">
+   <link rel="stylesheet" href="/css/styles.css">
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css">
+   <link rel="stylesheet" href="/node_modules/material-design-lite/material.blue_grey-red.min.css">
+</head>
+
+<body style="background-color: #37474F;">
+<input type="hidden" id="userId">
+
+<div id="account-form-container" class="center-vertical">
+   <form method="post" id="account-form" class="form-horizontal well">
+      <h2></h2>
+      <h6 id="sub1">Please tell us a little bit about yourself.</h6>
+      <hr>
+      <div class="form-group">
+         <label class="control-label col-sm-3">First Name</label>
+         <div class="col-sm-9">
+            <input id="first-tf" type="text" name="first" value="" placeholder="First Name" class="form-control">
+         </div>
+      </div>
+      <div class="form-group">
+         <label class="control-label col-sm-3">Last Name</label>
+         <div class="col-sm-9">
+            <input id="last-tf" type="text" name="last" value="" placeholder="Last Name" class="form-control">
+         </div>
+      </div>
+      <div class="form-group">
+         <label class="control-label col-sm-3">Email</label>
+         <div class="col-sm-9">
+            <input id="email-tf" type="text" name="email" value="" placeholder="Email" class="form-control">
+         </div>
+      </div>
+      <div class="form-group">
+         <label class="control-label col-sm-3">Phone</label>
+         <div class="col-sm-9">
+            <input id="phone-tf" type="text" name="phone" value="" placeholder="Phone" class="form-control">
+         </div>
+      </div>
+      <hr>
+      <h6 id="sub2"></h6>
+      <div class="form-group">
+         <label class="control-label col-sm-3">Username</label>
+         <div class="col-sm-9">
+            <input id="user-tf" type="text" name="username" value="" placeholder="Username"
+                   class="form-control disabled">
+         </div>
+      </div>
+      <div class="form-group">
+         <label class="control-label col-sm-3">Password</label>
+         <div class="col-sm-9">
+            <input id="pass-tf" type="password" name="password" value="" placeholder="Password" class="form-control">
+         </div>
+      </div>
+      <hr>
+      <div class="form-buttons">
+         <button type="button" id="account-form-btn1" class="btn btn-default">Cancel</button>
+         <button type="submit" id="account-form-btn2" class="btn btn-primary">Submit</button>
+      </div>
+
+      <div class="clearfix"></div>
+
+   </form>
+</div>
+
+<div class="modal-form-errors modal fade">
+   <div class="vertical-alignment-helper">
+      <div class="modal-dialog vertical-align-center">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button data-dismiss="modal" class="close">x</button>
+                  <h4>Whoops!</h4>
+               </div>
+               <div class="modal-body">It looks like there was a problem.
+                  <ul></ul>
+               </div>
+               <div class="modal-footer">
+                  <button data-dismiss="modal" class="btn btn-primary">OK</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal-alert modal fade">
+   <div class="vertical-alignment-helper">
+      <div class="modal-dialog vertical-align-center">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button data-dismiss="modal" class="close">x</button>
+               <h4></h4>
+            </div>
+            <div class="modal-body">
+               <p></p>
+            </div>
+            <div class="modal-footer">
+               <button data-dismiss="modal" id="ok" class="btn btn-primary">OK</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+</body>
+
+<script src="/vendor/jquery-2.2.3.min.js"></script>
+<script src="/vendor/jquery.form.min.js"></script>
+<script src="/vendor/bootstrap.min.js"></script>
+<script src="/js/views/signup.js"></script>
+<script src="/js/controllers/signupController.js"></script>
+<script src="/js/form-validators/accountValidator.js"></script>
+
+</html>

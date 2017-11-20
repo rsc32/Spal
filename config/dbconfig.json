@@ -1,0 +1,27 @@
+{
+  "development": {
+    "username": "root",
+    "password": "lolWhut123",
+    "database": "RigChecks",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "Rigchecks6541",
+    "database": "RigChecks-Test",
+    "host": "127.0.0.1",
+    "logging": false,
+    "sync": {
+      "force": true
+    },
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "Rigchecks6541",
+    "database": "RigChecks-Production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

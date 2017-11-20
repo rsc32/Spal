@@ -1,0 +1,35 @@
+{
+  "name": "RigChecks",
+  "version": "0.5.0",
+  "private": true,
+  "scripts": {
+    "start": "NODE_ENV=production pm2 start ./bin/www --name rc-web && pm2 logs rc-web",
+    "stop": "pm2 stop rc-web",
+    "restart": "NODE_ENV=production pm2 restart ./bin/www --name rc-web && pm2 logs rc-web"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "express": "~4.13.4",
+    "express-generator": "^4.13.4",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.14.2",
+    "express-validator": "^2.21.0",
+    "handlebars": "^4.0.6",
+    "moment": "^2.17.1",
+    "morgan": "~1.7.0",
+    "mysql": "^2.11.1",
+    "nodemailer": "^2.7.0",
+    "nodemon": "^1.11.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "rand-token": "^0.3.0",
+    "sequelize": "^3.24.3",
+    "serve-favicon": "~2.3.0",
+    "stylus": "^0.52.4",
+    "supervisor": "^0.11.0"
+  }
+}

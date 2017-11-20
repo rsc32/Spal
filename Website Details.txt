@@ -1,0 +1,41 @@
+Website Details	-
+/bin
+	-www file starts server and connects to database.
+	
+/config
+	-database config file, passport authentication file
+	
+	
+/models  (database - client interaction (definitions))
+	-js files that use sequelize to add data to server
+	
+	
+/modules (client - database interaction (creation/database data check)))
+	- 4 modules, 
+	-account manager, data-manager, email dispatcher, encrypt)
+	
+	
+/public/js/controllers  (simple calling code)
+	-pop up windows that takes data (sign up sheet, etc)
+
+	
+/public/js/form-validators
+	-actual declaration of data to be used in forms
+	-controller folder sends appropriate validators to hbs files
+	
+	
+/public/js/views
+	-actual text and 
+	
+	
+/routes/index	
+	-issues hbs data, object calls {{}} 
+	-client side front end js interaction
+	
+/Views  
+	-hbs files
+	-calls hbs {{}} js elements from routes/index.js
+	-calls validator elements for input
+	-converted to html
+	
+	
