@@ -1,11 +1,11 @@
 {
-  "name": "RigChecks",
-  "version": "0.5.0",
+  "name": "MySmartPal",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production pm2 start ./bin/www --name rc-web && pm2 logs rc-web",
-    "stop": "pm2 stop rc-web",
-    "restart": "NODE_ENV=production pm2 restart ./bin/www --name rc-web && pm2 logs rc-web"
+    "start": "pm2 start ./bin/www --name pal && pm2 logs pal",
+    "stop": "pm2 stop pal",
+    "restart": "pm2 restart ./bin/www --name pal && pm2 logs pal"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -13,7 +13,6 @@
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
-    "emailjs": "^1.0.12",
     "express": "~4.13.4",
     "express-generator": "^4.13.4",
     "express-handlebars": "^3.0.0",
